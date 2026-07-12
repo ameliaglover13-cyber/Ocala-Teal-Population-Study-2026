@@ -3,20 +3,32 @@ import os
 
 # Define file paths using Google Drive structure
 drive_path = '/content/drive/My Drive/Avian_Research_Teal_Project/Data/'
-input_ebd_file = os.path.join(drive_path, 'ebd_US-FL_relMay-2026.txt') # Change if your file name differs
+input_ebd_file = os.path.join(drive_path, 'ebd_US-FL_relMay-2026.txt') 
 output_clean_file = os.path.join(drive_path, 'ocala_teal_data.csv')
 
 # Exact study parameters
 target_parks = ["Ocala Wetland Recharge Park", "Tuscawilla Park"] 
-target_species = "Anas crecca" # Green-winged Teal scientific name
+target_species = "Anas crecca" 
+
+# 🛠️ PERFORMANCE FIX 1: Ignore the other 40+ columns. ONLY load these 5.
+cols_to_keep = ['GLOBAL UNIQUE IDENTIFIER', 'LOCALITY', 'SCIENTIFIC NAME', 'OBSERVATION COUNT', 'OBSERVATION DATE']
+
+# 🛠️ PERFORMANCE FIX 2: Force light text-types instead of heavy objects
+data_types = {
+    'GLOBAL UNIQUE IDENTIFIER': 'str',
+    'LOCALITY': 'str',
+    'SCIENTIFIC NAME': 'str',
+    'OBSERVATION COUNT': 'str', # Kept as string to smoothly handle "X" or blank counts safely
+    'OBSERVATION DATE': 'str'
+}
 
 print("Connecting to Google Drive and scanning eBird dataset...")
 
 chunk_size = 50000
 filtered_chunks = []
 
-# Process in chunks to prevent Google Colab from crashing
-for chunk in pd.read_csv(input_ebd_file, sep='\t', chunksize=chunk_size, low_memory=False):
+# Process in chunks with memory optimizations active
+for chunk in pd.read_csv(input_ebd_file, sep='\t', chunksize=chunk_size, low_memory=False, usecols=cols_to_keep, dtype=data_types):
     matched_rows = chunk[
         (chunk['LOCALITY'].isin(target_parks)) & 
         (chunk['SCIENTIFIC NAME'] == target_species)
