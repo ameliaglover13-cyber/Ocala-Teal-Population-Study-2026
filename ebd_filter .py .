@@ -1,0 +1,30 @@
+import pandas as pd
+import os
+
+# Define file paths using Google Drive structure
+drive_path = '/content/drive/My Drive/Avian_Research_Teal_Project/Data/'
+input_ebd_file = os.path.join(drive_path, 'ebd_US-FL_relMay-2026.txt') # Change if your file name differs
+output_clean_file = os.path.join(drive_path, 'ocala_teal_data.csv')
+
+# Exact study parameters
+target_parks = ["Ocala Wetland Recharge Park", "Tuscawilla Park"] 
+target_species = "Anas crecca" # Green-winged Teal scientific name
+
+print("Connecting to Google Drive and scanning eBird dataset...")
+
+chunk_size = 50000
+filtered_chunks = []
+
+# Process in chunks to prevent Google Colab from crashing
+for chunk in pd.read_csv(input_ebd_file, sep='\t', chunksize=chunk_size, low_memory=False):
+    matched_rows = chunk[
+        (chunk['LOCALITY'].isin(target_parks)) & 
+        (chunk['SCIENTIFIC NAME'] == target_species)
+    ]
+    filtered_chunks.append(matched_rows)
+
+final_data = pd.concat(filtered_chunks)
+final_data.to_csv(output_clean_file, index=False)
+
+print(f"Success! Extracted {len(final_data)} teal observations.")
+print(f"Your clean file is saved in your Drive folder as: ocala_teal_data.csv")
