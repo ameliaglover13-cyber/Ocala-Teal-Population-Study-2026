@@ -3,7 +3,8 @@ import os
 
 # Define file paths using Google Drive structure
 drive_path = '/content/drive/My Drive/Avian_Research_Teal_Project/Data/'
-input_ebd_file = os.path.join(drive_path, 'ebd_US-FL_relMay-2026.txt') 
+input_ebd_file = os.path.join(drive_path, 'ebd_US-FL-083_gnwtea_202410_202604_unv_smp_relMay-2026.txt')
+ 
 output_clean_file = os.path.join(drive_path, 'ocala_teal_data.csv')
 
 # Exact study parameters
