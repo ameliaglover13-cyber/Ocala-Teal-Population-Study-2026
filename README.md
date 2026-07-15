@@ -23,7 +23,7 @@ The script filters raw eBird Basic Dataset (EBD) files for Marion County, Florid
 3. The cleaned results will export automatically to an Excel spreadsheet (`Ocala_Teal_Winter_Data.xlsx`).
 
 ## Interactive Map
-You can view a 3D satellite visualization of our specific pond boundaries and observation points here: [Interactive Google Earth Project](https://earth.google.com/earth/d/1huZd9ee2wG1Ii4_KK1ludsTjp7Mfp_6z
+You can view a 3D satellite visualization of our specific pond boundaries and observation points here:(https://earth.google.com/earth/d/1huZd9ee2wG1Ii4_KK1ludsTjp7Mfp_6z
 
 ## eBird Profile Amelia Glover
 https://ebird.org/profile/MzM0NDc1NQ/US-FL
