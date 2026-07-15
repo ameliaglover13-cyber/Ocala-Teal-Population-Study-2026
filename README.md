@@ -21,3 +21,7 @@ The script filters raw eBird Basic Dataset (EBD) files for Marion County, Florid
 1. Upload your eBird Basic Dataset `.txt` file to the root directory.
 2. Execute the `extract_ocala_teal_data.ipynb` script via Google Colab.
 3. The cleaned results will export automatically to an Excel spreadsheet (`Ocala_Teal_Winter_Data.xlsx`).
+
+## Credits & Acknowledgments
+* **Data Source:** eBird Basic Dataset (EBD) provided by the Cornell Lab of Ornithology.
+* **Code Development:** Python extraction pipeline generated with assistance from Google Gemini AI to ensure reproducible data filtering workflows.
